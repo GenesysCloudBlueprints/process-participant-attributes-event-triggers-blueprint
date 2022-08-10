@@ -22,7 +22,7 @@ resource "genesyscloud_flow" "event_orchestrator_inboundcall" {
     genesyscloud_flow.event_orchestrator_secureflow
   ]
 
-  filepath = "./architect-flows/EventOrchestrator_Flow.yaml.yaml"
+  filepath = "./architect-flows/EventOrchestrator_Flow.yaml"
 }
 
 resource "local_file" "create_workflow" {
