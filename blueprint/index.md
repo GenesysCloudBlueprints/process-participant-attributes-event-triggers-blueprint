@@ -18,12 +18,11 @@ This Genesys Cloud Developer Blueprint demonstrates how to optimize call flows u
 
 ## Scenario
 
-This Genesys Cloud Develop Blueprint demonstrates how to use event triggers to save participant attributes to an Amazon S3 bucket, which serves as a third-party database. To implement this solution, you use Terraform, CX as Code, and Archy. Terraform deploys the required AWS resources, Genesys Cloud resources, and Architect flows. Terraform also runs a Python script that creates a process trigger that defines the events or conditions that cause a workflow to execute. For this solution, the process trigger executes a workflow when a call is disconnected.
+This Genesys Cloud Develop Blueprint demonstrates how to use event triggers to save participant attributes to an Amazon S3 bucket, which serves as a third-party database. To implement this solution, you use Terraform, and CX as Code. Terraform deploys the required AWS resources, Genesys Cloud resources, and Architect flows. Terraform also runs a Python script that creates a process trigger that defines the events or conditions that cause a workflow to execute. For this solution, the process trigger executes a workflow when a call is disconnected.
 
 ## Solution components
 
 - **[Genesys Cloud CX](https://www.genesys.com/genesys-cloud "Goes to the Genesys Cloud CX page")** - A suite of Genesys cloud services for enterprise-grade communications, collaboration, and contact center management. You create and manage OAuth clients in Genesys Cloud.
-- **[Archy](https://developer.genesys.cloud/devapps/archy/ "Goes to the Welcome to Archy page")** - A Genesys Cloud command-line tool for building and managing Architect flows.
 - **[Terraform](https://www.terraform.io/ "Goes to the Terraform page")** - An open-source framework for managing cloud - and prem-based infrastructure services via a CLI.
 - **[CX as Code](https://developer.genesys.cloud/api/rest/CX-as-Code/ "Goes to the CX as Code page")** - A Genesys Cloud Terraform provider that provides a command-line interface for declaring core Genesys Cloud objects.
 - **[AWS Lambda](https://aws.amazon.com/lambda/ "Opens the AWS Lambda page")** - A serverless computing service for running code without creating or maintaining the underlying infrastructure.
@@ -43,7 +42,6 @@ This Genesys Cloud Develop Blueprint demonstrates how to use event triggers to s
 
 - A Genesys Cloud license. For more information, see [Genesys Cloud Pricing](https://www.genesys.com/pricing "Opens the Genesys Cloud pricing page") on the Genesys website.
 - Master Admin role. For more information, see [Roles and permissions overview](https://help.mypurecloud.com/?p=24360 "Opens the Roles and permissions overview article") in the Genesys Cloud Resource Center.
-- Archy (the latest version) Archy is Genesys Cloud's command line to deploy Genesys Cloud Architect Flows. For more information, see [Welcome to Archy](https://developer.genesys.cloud/devapps/archy/ "Goes to the Welcome to Archy page").
 - CX as Code. For more information, see [CX as Code](https://developer.genesys.cloud/devapps/cx-as-code/ "Opens the CX as Code page") in the Genesys Cloud Developer Center.
 
 ### AWS user account
@@ -63,13 +61,23 @@ This Genesys Cloud Develop Blueprint demonstrates how to use event triggers to s
 
 ## Implementation steps
 
-- [Clone the repository that contains the project files](#clone-the-repository-that-contains-the-project-files "Goes to the Clone the repository containing the project files section")
-- [Create a role for administering Process Automation Triggers](#create-a-role-for-administering-process-automation-triggers "Goes to the Create a role for administering Process Automation Triggers section")
-- [Create an OAuth Client Credentials Token in Genesys Cloud](#create-an-oauth-client-credentials-token-in-genesys-cloud "Create an OAuth Client Credentials Token in Genesys Cloud section")
-- [Define the environment variables](#define-the-environment-variables "Define the environment variables section")
-- [Deploy the infrastructure](#deploy-the-application "Goes to the Build and deploy the infrastructure section")
-- [Building Golang Lambda](#building-golang-lambda "Goes to the building golang lambda section")
-- [Test your infrastructure](#test-your-infrastructure)
+- [Scenario](#scenario)
+- [Solution components](#solution-components)
+- [Prerequisites](#prerequisites)
+  - [Specialized knowledge](#specialized-knowledge)
+  - [Genesys Cloud account](#genesys-cloud-account)
+  - [AWS user account](#aws-user-account)
+  - [Third-party software](#third-party-software)
+- [Implementation steps](#implementation-steps)
+  - [Clone the repository that contains the project files](#clone-the-repository-that-contains-the-project-files)
+  - [Create a role to administer process automation triggers](#create-a-role-to-administer-process-automation-triggers)
+  - [Create an OAuth Client Credentials Token in Genesys Cloud](#create-an-oauth-client-credentials-token-in-genesys-cloud)
+  - [Define the environment variables](#define-the-environment-variables)
+  - [Define Terraform variables](#define-terraform-variables)
+  - [Create and deploy the infrastructure](#create-and-deploy-the-infrastructure)
+  - [Build the Golang Lambda](#build-the-golang-lambda)
+- [Test your setup](#test-your-setup)
+- [Additional resources](#additional-resources)
 
 ### Clone the repository that contains the project files
 
@@ -173,6 +181,5 @@ Dial the number you entered in the `blueprint/src/terraform/variables.auto.tfvar
 
 - [Genesys Cloud Provider](https://registry.terraform.io/providers/MyPureCloud/genesyscloud/latest/docs "Goes to the Genesys Cloud provider page") on the Terraform website
 - [AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs "Go to the AWS provider page") on the Terraform website
-- [Deploy a simple IVR using Terraform, CX as Code, and Archy](https://developer.genesys.cloud/blueprints/simple-ivr-deploy-with-cx-as-code-blueprint/ "Goes to Deploy a simple IVR using Terraform, CX as Code, and Archy blueprint") in the Genesys Cloud Developer Center
 - [process-participant-attributes-event-triggers-blueprint](https://github.com/GenesysCloudBlueprints/process-participant-attributes-event-triggers-blueprint "Goes to the Process participant attributes event triggers blueprint") in Github
 AWS credentials. For more information setting up your AWS credentials on your local machine, see [Configuration](https://docs.aws.amazon.com/sdkref/latest/guide/creds-config-files.html "Goes to the Configuration page") on the AWS website
