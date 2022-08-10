@@ -61,23 +61,13 @@ This Genesys Cloud Develop Blueprint demonstrates how to use event triggers to s
 
 ## Implementation steps
 
-- [Scenario](#scenario)
-- [Solution components](#solution-components)
-- [Prerequisites](#prerequisites)
-  - [Specialized knowledge](#specialized-knowledge)
-  - [Genesys Cloud account](#genesys-cloud-account)
-  - [AWS user account](#aws-user-account)
-  - [Third-party software](#third-party-software)
-- [Implementation steps](#implementation-steps)
-  - [Clone the repository that contains the project files](#clone-the-repository-that-contains-the-project-files)
-  - [Create a role to administer process automation triggers](#create-a-role-to-administer-process-automation-triggers)
-  - [Create an OAuth Client Credentials Token in Genesys Cloud](#create-an-oauth-client-credentials-token-in-genesys-cloud)
-  - [Define the environment variables](#define-the-environment-variables)
-  - [Define Terraform variables](#define-terraform-variables)
-  - [Create and deploy the infrastructure](#create-and-deploy-the-infrastructure)
-  - [Build the Golang Lambda](#build-the-golang-lambda)
-- [Test your setup](#test-your-setup)
-- [Additional resources](#additional-resources)
+- [Clone the repository that contains the project files](#clone-the-repository-that-contains-the-project-files "Goes to the Clone the repository containing the project files section")
+- [Create a role for administering Process Automation Triggers](#create-a-role-for-administering-process-automation-triggers "Goes to the Create a role for administering Process Automation Triggers section")
+- [Create an OAuth Client Credentials Token in Genesys Cloud](#create-an-oauth-client-credentials-token-in-genesys-cloud "Create an OAuth Client Credentials Token in Genesys Cloud section")
+- [Define the environment variables](#define-the-environment-variables "Define the environment variables section")
+- [Deploy the infrastructure](#deploy-the-application "Goes to the Build and deploy the infrastructure section")
+- [Building Golang Lambda](#building-golang-lambda "Goes to the building golang lambda section")
+- [Test your infrastructure](#test-your-infrastructure)
 
 ### Clone the repository that contains the project files
 
