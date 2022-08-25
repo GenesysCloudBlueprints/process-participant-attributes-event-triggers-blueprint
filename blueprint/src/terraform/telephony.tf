@@ -1,6 +1,6 @@
 data "genesyscloud_flow" "IVR_id" {
   depends_on = [
-    null_resource.deploy_archy_flow_inboundcall
+    genesyscloud_flow.event_orchestrator_inboundcall
   ]
   name = "Main IVR"
 }
@@ -11,7 +11,7 @@ resource "genesyscloud_telephony_providers_edges_did_pool" "mygcv_numbers" {
   description        = "GCV Numbers for inbound calls"
   comments           = "Additional comments"
   depends_on = [
-    null_resource.deploy_archy_flow_inboundcall
+    genesyscloud_flow.event_orchestrator_inboundcall
   ]
 }
 
