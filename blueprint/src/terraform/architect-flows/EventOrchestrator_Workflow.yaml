@@ -1,0 +1,111 @@
+workflow:
+  name: EventOrchestra Workflow
+  description: Blue print to demonstrate Event Orchestration
+  startUpRef: "/workflow/states/state[Initial State_11]"
+  defaultLanguage: en-us
+  supportedLanguages:
+    en-us:
+      none: true
+  variables:
+    - stringVariable:
+        name: Flow.ani
+        initialValue:
+          noValue: true
+        isInput: true
+    - stringVariable:
+        name: Flow.conversationId
+        initialValue:
+          noValue: true
+        isInput: true
+    - stringVariable:
+        name: Flow.paymentId
+        initialValue:
+          noValue: true
+  settingsErrorHandling:
+    errorHandling:
+      endWorkflow:
+        none: true
+  states:
+    - state:
+        name: Initial State
+        refId: Initial State_11
+        actions:
+          - decision:
+              name: Decision
+              condition:
+                exp: IsSet(Flow.conversationId)
+              outputs:
+                yes:
+                  actions:
+                    - getConversationData:
+                        name: Get Conversation Data
+                        conversationId:
+                          exp: Flow.conversationId
+                        participantId:
+                          noValue: true
+                        attributes:
+                          - attribute:
+                              name:
+                                lit: paymentId
+                              variable: Flow.paymentId
+                        outputs:
+                          found:
+                            actions:
+                              - callData:
+                                  name: Call Data Action
+                                  timeout:
+                                    lit:
+                                      minutes: 1
+                                  category:
+                                    ${dataAction}-Lambda:
+                                      dataAction:
+                                        ${dataAction}-data-action:
+                                          inputs:
+                                            paymentId:
+                                              exp: Flow.paymentId
+                                            phoneNumber:
+                                              exp: Flow.ani
+                                          failureOutputs:
+                                            errorCode:
+                                              noValue: true
+                                            status:
+                                              noValue: true
+                                            correlationId:
+                                              noValue: true
+                                            entityId:
+                                              noValue: true
+                                            entityName:
+                                              noValue: true
+                                            userMessage:
+                                              noValue: true
+                                            userParamsMessage:
+                                              noValue: true
+                                            userParams.key:
+                                              noValue: true
+                                            userParams.value:
+                                              noValue: true
+                                            details.errorCode:
+                                              noValue: true
+                                            details.fieldName:
+                                              noValue: true
+                                            details.entityId:
+                                              noValue: true
+                                            details.entityName:
+                                              noValue: true
+                                  outputs:
+                                    success:
+                                      actions:
+                                        - endWorkflow:
+                                            name: End Workflow
+                                            exitReason:
+                                              noValue: true
+                no:
+                  actions:
+                    - endWorkflow:
+                        name: End Workflow
+                        exitReason:
+                          noValue: true
+          - endWorkflow:
+              name: End Workflow
+              exitReason:
+                noValue: true

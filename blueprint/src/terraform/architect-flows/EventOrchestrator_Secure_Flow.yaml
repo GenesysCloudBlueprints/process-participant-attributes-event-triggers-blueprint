@@ -1,0 +1,164 @@
+secureCall:
+  name: EventOrchestrator Secure Flow
+  description: Get payment information from users
+  startUpRef: "/secureCall/tasks/task[Task_10]"
+  defaultLanguage: en-us
+  supportedLanguages:
+    en-us:
+      defaultLanguageSkill:
+        noValue: true
+      textToSpeech:
+        defaultEngine:
+          voice: Jill
+  initialGreeting:
+    tts: Welcome to payment call
+  settingsActionDefaults:
+    playAudioOnSilence:
+      timeout:
+        lit:
+          seconds: 40
+    detectSilence:
+      timeout:
+        lit:
+          seconds: 40
+    callData:
+      processingPrompt:
+        noValue: true
+    callBridge:
+      processingPrompt:
+        noValue: true
+    callDataSecure:
+      processingPrompt:
+        noValue: true
+    collectInput:
+      noEntryTimeout:
+        lit:
+          seconds: 5
+    dialByExtension:
+      interDigitTimeout:
+        lit:
+          seconds: 6
+    transferToUser:
+      connectTimeout:
+        noValue: true
+    transferToNumber:
+      connectTimeout:
+        noValue: true
+    transferToGroup:
+      connectTimeout:
+        noValue: true
+  settingsErrorHandling:
+    errorHandling:
+      disconnect:
+        none: true
+    preHandlingAudio:
+      tts: Sorry, an error occurred. Please try your call again.
+  settingsMenu:
+    extensionDialingMaxDelay:
+      lit:
+        seconds: 1
+    listenForExtensionDialing:
+      lit: true
+    menuSelectionTimeout:
+      lit:
+        seconds: 10
+    repeatCount:
+      lit: 3
+  settingsPrompts:
+    ensureAudioInPrompts: false
+  settingsSpeechRec:
+    completeMatchTimeout:
+      lit:
+        ms: 100
+    incompleteMatchTimeout:
+      lit:
+        ms: 1500
+    maxSpeechLengthTimeout:
+      lit:
+        seconds: 20
+    minConfidenceLevel:
+      lit: 50
+    asrCompanyDir: none
+    asrEnabledOnFlow: true
+  tasks:
+    - task:
+        name: Task
+        refId: Task_10
+        variables:
+          - stringVariable:
+              name: Task.cardNumber
+              initialValue:
+                noValue: true
+          - stringVariable:
+              name: Task.paymentId
+              initialValue:
+                noValue: true
+        actions:
+          - collectInput:
+              name: Process card details
+              inputData:
+                var: Task.cardNumber
+              digits:
+                range:
+                  terminatingDtmf: digit_*
+                  min: 1
+                  max: 9
+              interDigitTimeout:
+                noValue: true
+              noEntryTimeout:
+                noValue: true
+              inputAudio:
+                tts: Please Enter your 9 digit card number to make a purchase
+              includeTerminatingDtmfInResultData: false
+              acceptJustStar:
+                lit: false
+              acceptJustPound:
+                lit: false
+              outputs:
+                success:
+                  actions:
+                    - callData:
+                        name: Call Data Action
+                        processingPrompt:
+                          noValue: true
+                        timeout:
+                          lit:
+                            minutes: 1
+                        category:
+                          ${dataAction}-Lambda:
+                            dataAction:
+                              ${dataAction}-data-action:
+                                inputs:
+                                  cardNumber:
+                                    exp: Task.cardNumber
+                                successOutputs:
+                                  paymentId:
+                                    var: Task.paymentId
+                        outputs:
+                          success:
+                            actions:
+                              - setParticipantData:
+                                  name: Set Participant Data
+                                  attributes:
+                                    - attribute:
+                                        name:
+                                          lit: paymentId
+                                        value:
+                                          exp: Task.paymentId
+                              - playAudio:
+                                  name: Acknowledge User
+                                  audio:
+                                    tts: Thank you for your purchase
+                failure:
+                  actions:
+                    - setParticipantData:
+                        name: Set Participant Data
+                        attributes:
+                          - attribute:
+                              name:
+                                lit: paymentId
+                              value:
+                                lit: "null"
+              verificationType: individualDigits
+          - disconnect:
+              name: Disconnect
