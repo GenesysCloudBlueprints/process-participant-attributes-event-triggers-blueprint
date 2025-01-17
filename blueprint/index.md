@@ -62,12 +62,12 @@ This Genesys Cloud Develop Blueprint demonstrates how to use event triggers to s
 ## Implementation steps
 
 - [Clone the repository that contains the project files](#clone-the-repository-that-contains-the-project-files "Goes to the Clone the repository containing the project files section")
-- [Create a role for administering Process Automation Triggers](#create-a-role-for-administering-process-automation-triggers "Goes to the Create a role for administering Process Automation Triggers section")
+- [Create a role to administer Process Automation Triggers](#create-a-role-to-administer-process-automation-triggers "Goes to the Create a role to administer Process Automation Triggers section")
 - [Create an OAuth Client Credentials Token in Genesys Cloud](#create-an-oauth-client-credentials-token-in-genesys-cloud "Create an OAuth Client Credentials Token in Genesys Cloud section")
 - [Define the environment variables](#define-the-environment-variables "Define the environment variables section")
-- [Deploy the infrastructure](#deploy-the-application "Goes to the Build and deploy the infrastructure section")
-- [Building Golang Lambda](#building-golang-lambda "Goes to the building golang lambda section")
-- [Test your infrastructure](#test-your-infrastructure)
+- [Create and Deploy the infrastructure](#create-and-deploy-the-infrastructure "Goes to the Create and Deploy the infrastructure section")
+- [Build the Golang Lambda](#build-the-golang-lambda "Goes to the Build the Golang Lambda section")
+- [Test your infrastructure](#test-your-infrastructure "Goes to the Test your infrastructure section")
 
 ### Clone the repository that contains the project files
 
@@ -141,7 +141,7 @@ In the blueprint/terraform/variables.auto.tfvars file, set the following values:
 If you have an existing DID pool range you want to use, open the `telephony.tf` file and comment out the `genesyscloud_telephony_providers_edges_did_pool` resource. Then in the `genesyscloud_architect_ivr` resource, comment out the `depends_on` property. Save your changes.
 :::
 
-### Create and deploy the infrastructure
+### Create and Deploy the infrastructure
 
 1. To run this project using AWS the Terraform provider, open a Terminal window and change to the `terraform` directory. Then run the following command:
 
@@ -163,7 +163,7 @@ This blueprint includes prebuilt Go Lambdas. The command to build Golang Lambda 
 GOOS=linux GOARCH=amd64 go build -o ../bin/main
 ```
 
-## Test your setup
+## Test your infrastructure
 
 Dial the number you entered in the `blueprint/src/terraform/variables.auto.tfvars` file. Once the IVR picks up, you should hear the following response of **Welcome to the cloud store**. If you receive this response, the setup has been deployed correctly. When the call ends, you should see your phone number and a randomly generated payment ID saved in your deployed s3 bucket.
 
