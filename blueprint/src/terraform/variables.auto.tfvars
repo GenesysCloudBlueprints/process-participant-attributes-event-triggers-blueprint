@@ -21,7 +21,7 @@ bucket_name = "saved-payment-data"
 bucket_tag = "saved user data"
 
 #Needs to be changed 
-IVR_start_number = "+1720123456"
+IVR_start_number = "+17201234567"
 
-IVR_end_number = "+1720123456"
+IVR_end_number = "+17201234567"
 

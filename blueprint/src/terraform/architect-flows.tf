@@ -15,7 +15,6 @@ resource "genesyscloud_flow" "event_orchestrator_secureflow" {
   ]
 
   filepath = "${path.module}/architect-flows/EventOrchestrator_Secure_Flow.yaml"
-  file_content_hash = filesha256("${path.module}/architect-flows/EventOrchestrator_Secure_Flow.yaml")
 }
 
 resource "genesyscloud_flow" "event_orchestrator_inboundcall" {
@@ -24,7 +23,6 @@ resource "genesyscloud_flow" "event_orchestrator_inboundcall" {
   ]
 
   filepath = "${path.module}/architect-flows/EventOrchestrator_Flow.yaml"
-  file_content_hash = filesha256("${path.module}/architect-flows/EventOrchestrator_Flow.yaml")
 }
 
 resource "local_file" "create_workflow" {
@@ -41,5 +39,4 @@ resource "genesyscloud_flow" "event_orchestrator_workflow" {
   ]
 
   filepath = "${path.module}/architect-flows/EventOrchestrator_Workflow.yaml"
-  file_content_hash = filesha256("${path.module}/architect-flows/EventOrchestrator_Workflow.yaml")
 }
